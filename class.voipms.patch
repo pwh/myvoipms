@@ -1,0 +1,40 @@
+--- old	2018-05-17 13:57:44.000000000 -0400
++++ new	2019-01-03 17:54:59.061993706 -0500
+@@ -297,13 +297,16 @@
+         return $this->soapCall($function,$params);
+     }
+ 
+-    function delMessages($mailbox){
++// see defect report 122109 2018-11-15
++    function delMessages($mailbox,$folder,$message_num){
+         $function = "delMessages";
+         $params = array(
+             "params" => array(
+                 "api_username"  => $this->api_username,
+                 "api_password"  => $this->api_password,
+-                "mailbox"       => $mailbox
++                "mailbox"       => $mailbox,
++                "folder"		=> $folder,
++                "message_num"	=> $message_num
+             )
+         );
+         return $this->soapCall($function,$params);
+@@ -1331,7 +1334,7 @@
+         return $this->soapCall($function,$params);
+     }
+ 
+-    function getVoicemailMessageFile($mailbox,$folder,$message_num){
++    function getVoicemailMessageFile($mailbox,$folder,$message_num,$format){
+         $function = "getVoicemailMessageFile";
+         $params = array(
+             "params" => array(
+@@ -1339,7 +1342,8 @@
+                 "api_password"  => $this->api_password,
+                 "mailbox"       => $mailbox,
+                 "folder"        => $folder,
+-                "message_num"    => $message_num
++                "message_num"    => $message_num,
++                "format"		=> $format
+             )
+         );
+         return $this->soapCall($function,$params);
